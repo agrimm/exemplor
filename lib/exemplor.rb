@@ -79,9 +79,14 @@ module Exemplor
   class Examples
     
     attr_writer :setup_block
+
+    def already_run?
+      @already_run
+    end
     
     def initialize
       @examples = OrderedHash.new
+      @already_run = false
     end
     
     def add(name, &body)
@@ -89,6 +94,7 @@ module Exemplor
     end
     
     def run(patterns)
+      @already_run = true
       fails = 0
       # unoffically supports multiple patterns
       patterns = Regexp.new(patterns.join('|'))
@@ -233,6 +239,6 @@ at_exit do
   if args.delete('--list') || args.delete('-l')
     Exemplor.examples.list(args)
   else
-    exit Exemplor.examples.run(args)
+    exit Exemplor.examples.run(args) unless Exemplor.examples.already_run?
   end
 end
