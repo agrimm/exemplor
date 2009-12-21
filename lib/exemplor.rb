@@ -1,3 +1,4 @@
+#coding: utf-8
 require 'orderedhash'
 require 'yaml'
 
@@ -80,8 +81,8 @@ module Exemplor
       hsh = OrderedHash do |o|
         o['name'] = self.name
         o['status'] = case status = self.status
-          when :info  : 'info (no checks)'
-          when :infos : 'info (with checks)'
+          when :info  then 'info (no checks)'
+          when :infos then 'info (with checks)'
           else ; status.to_s
         end
         o['result'] = self.result
@@ -93,7 +94,7 @@ module Exemplor
       # •∙ are inverted in my terminal font (Incosolata) so I'm swapping them
       require 'term/ansicolor'
       case status
-      when :info : blue format_info("• #{name}", result)
+      when :info then blue format_info("• #{name}", result)
       when :infos
         formatted_result = result.map do |r|
           format_info("• #{r['name']}", r['result']).rstrip
