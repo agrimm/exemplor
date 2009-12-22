@@ -17,7 +17,11 @@ rescue LoadError
 end
 
 task :examples do
-  ruby "examples.rb"
+  if ENV["RUN_CODE_RUN"]
+    ruby "-Ilib", "examples.rb"
+  else
+    ruby "examples.rb"
+  end
 end
 
 task :test => :examples

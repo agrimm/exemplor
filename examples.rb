@@ -34,7 +34,7 @@ eg "errors are caught and nicely displayed" do
   Check(result['status']).is('error')
   Check(result['result']['class']).is('RuntimeError')
   Check(result['result']['message']).is('boom!')
-  Check(result['result']['backtrace'][0]).is('examples/an_error.rb:4')
+  Check(result['result']['backtrace'][0][0...22]).is('examples/an_error.rb:4')
 end
 
 eg { check_output_matches_expected_for :no_checks }
